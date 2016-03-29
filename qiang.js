@@ -1,17 +1,10 @@
-console.log("开始监控");
+console.log("Start watching");
 String.prototype.contains = function (str) {
     return this.indexOf(str) >= 0;
-    ;
 }
-var count = 0;
+var clicked = false;
+
 $(document).ready(function () {
-
-    function GetRandomNum(Min, Max) {
-        var Range = Max - Min;
-        var Rand = Math.random();
-        return (Min + Math.round(Rand * Range));
-    }
-
 
     function qiang() {
         try {
@@ -19,18 +12,15 @@ $(document).ready(function () {
                 return;
             }
             select("标准", ".J_stepItem");
-            select("全网通", ".J_stepItem");
-            //select("双网通", ".J_stepItem");
+            //select("全网通", ".J_stepItem");
             select("白色", ".J_stepItem");
-            $(".J_packageItem").each(function () {
-                $(this).click();
-            });
-            select("裸机", ".J_packageItem");
-            console.log('==length==' + $("#J_proBuyBtn").length);
+            select("必备套装", ".J_packageItem");
+            //select("裸机", ".J_packageItem");
             $("#J_proBuyBtn").each(function () {
-                var mo2g = '<span id="mo2g">forTest<span>';
+                var mo2g = '<span id="zlhades">forTest<span>';
                 $(this).append(mo2g);
-                $('#mo2g').click();
+                $('#zlhades').click();
+                clicked = true;
                 return;
             });
             if ($("#J_proBuyBtn").length == 0) {
@@ -40,20 +30,22 @@ $(document).ready(function () {
             console.log('==eee==' + e);
             refresh()
         }
-
-        setTimeout(qiang, 10);
+        if(!clicked)
+            setTimeout(qiang, 10);
     }
     function refresh(){
-        count++;
-        if (count > 10) {
-            location.reload();
-        }
+        //count++;
+        //if (count > 10) {
+        //    location.reload();
+        //}
     }
 
     function select(name, className) {
         $(className).each(function () {
             if (this.innerHTML.trim().contains(name)) {
-                $(this).click();
+                if(!$(this).attr('class').contains('active')) {
+                    $(this).click();
+                }
             }
         });
 
